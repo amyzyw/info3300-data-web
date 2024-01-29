@@ -1,0 +1,730 @@
+[
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-White",
+      "year": 2019,
+      "offenses": 755,
+      "percent": 0.157818
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Black or African American",
+      "year": 2019,
+      "offenses": 2314,
+      "percent": 0.483696
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-American Indian or Alaska Native",
+      "year": 2019,
+      "offenses": 126,
+      "percent": 0.026338
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Asian",
+      "year": 2019,
+      "offenses": 205,
+      "percent": 0.042851
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Native Hawaiian or Other Pacific Islander",
+      "year": 2019,
+      "offenses": 25,
+      "percent": 0.005226
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Multiple Races",
+      "year": 2019,
+      "offenses": 171,
+      "percent": 0.035744
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Arab",
+      "year": 2019,
+      "offenses": 122,
+      "percent": 0.025502
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Hispanic or Latino",
+      "year": 2019,
+      "offenses": 676,
+      "percent": 0.141304
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Other Race/Ethnicity/Ancestry",
+      "year": 2019,
+      "offenses": 390,
+      "percent": 0.081522
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Jewish",
+      "year": 2019,
+      "offenses": 995,
+      "percent": 0.60303
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Catholic",
+      "year": 2019,
+      "offenses": 66,
+      "percent": 0.04
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Protestant",
+      "year": 2019,
+      "offenses": 24,
+      "percent": 0.014545
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Islamic (Muslim)",
+      "year": 2019,
+      "offenses": 219,
+      "percent": 0.132727
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Other Religion",
+      "year": 2019,
+      "offenses": 243,
+      "percent": 0.147273
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Multiple Religions",
+      "year": 2019,
+      "offenses": 42,
+      "percent": 0.025455
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Buddhist",
+      "year": 2019,
+      "offenses": 5,
+      "percent": 0.00303
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Sikh",
+      "year": 2019,
+      "offenses": 50,
+      "percent": 0.030303
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Atheism/Agnosticism/etc.",
+      "year": 2019,
+      "offenses": 6,
+      "percent": 0.003636
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Gay (Male)",
+      "year": 2019,
+      "offenses": 867,
+      "percent": 0.621505
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Lesbian",
+      "year": 2019,
+      "offenses": 142,
+      "percent": 0.101792
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti Mixed Group",
+      "year": 2019,
+      "offenses": 342,
+      "percent": 0.245161
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Heterosexual",
+      "year": 2019,
+      "offenses": 17,
+      "percent": 0.012186
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Bisexual",
+      "year": 2019,
+      "offenses": 27,
+      "percent": 0.019355
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-White",
+      "year": 2020,
+      "offenses": 1048,
+      "percent": 0.156957
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Black or African American",
+      "year": 2020,
+      "offenses": 3819,
+      "percent": 0.571963
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-American Indian or Alaska Native",
+      "year": 2020,
+      "offenses": 103,
+      "percent": 0.015426
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Asian",
+      "year": 2020,
+      "offenses": 330,
+      "percent": 0.049423
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Native Hawaiian or Other Pacific Islander",
+      "year": 2020,
+      "offenses": 15,
+      "percent": 0.002247
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Multiple Races",
+      "year": 2020,
+      "offenses": 270,
+      "percent": 0.040437
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Arab",
+      "year": 2020,
+      "offenses": 85,
+      "percent": 0.01273
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Hispanic or Latino",
+      "year": 2020,
+      "offenses": 664,
+      "percent": 0.099446
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Other Race/Ethnicity/Ancestry",
+      "year": 2020,
+      "offenses": 343,
+      "percent": 0.05137
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Jewish",
+      "year": 2020,
+      "offenses": 794,
+      "percent": 0.566334
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Catholic",
+      "year": 2020,
+      "offenses": 77,
+      "percent": 0.054922
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Protestant",
+      "year": 2020,
+      "offenses": 31,
+      "percent": 0.022111
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Islamic (Muslim)",
+      "year": 2020,
+      "offenses": 126,
+      "percent": 0.089872
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Other Religion",
+      "year": 2020,
+      "offenses": 213,
+      "percent": 0.151926
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Multiple Religions",
+      "year": 2020,
+      "offenses": 44,
+      "percent": 0.031384
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Buddhist",
+      "year": 2020,
+      "offenses": 16,
+      "percent": 0.011412
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Sikh",
+      "year": 2020,
+      "offenses": 93,
+      "percent": 0.066334
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Atheism/Agnosticism/etc.",
+      "year": 2020,
+      "offenses": 8,
+      "percent": 0.005706
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Gay (Male)",
+      "year": 2020,
+      "offenses": 770,
+      "percent": 0.352403
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Lesbian",
+      "year": 2020,
+      "offenses": 1021,
+      "percent": 0.467277
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti Mixed Group",
+      "year": 2020,
+      "offenses": 363,
+      "percent": 0.166133
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Heterosexual",
+      "year": 2020,
+      "offenses": 12,
+      "percent": 0.005492
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Bisexual",
+      "year": 2020,
+      "offenses": 19,
+      "percent": 0.008696
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-White",
+      "year": 2021,
+      "offenses": 1131,
+      "percent": 0.207599
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Black or African American",
+      "year": 2021,
+      "offenses": 2685,
+      "percent": 0.492841
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-American Indian or Alaska Native",
+      "year": 2021,
+      "offenses": 135,
+      "percent": 0.02478
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Asian",
+      "year": 2021,
+      "offenses": 363,
+      "percent": 0.06663
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Native Hawaiian or Other Pacific Islander",
+      "year": 2021,
+      "offenses": 29,
+      "percent": 0.005323
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Multiple Races",
+      "year": 2021,
+      "offenses": 150,
+      "percent": 0.027533
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Arab",
+      "year": 2021,
+      "offenses": 99,
+      "percent": 0.018172
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Hispanic or Latino",
+      "year": 2021,
+      "offenses": 588,
+      "percent": 0.10793
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Other Race/Ethnicity/Ancestry",
+      "year": 2021,
+      "offenses": 268,
+      "percent": 0.049192
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Jewish",
+      "year": 2021,
+      "offenses": 351,
+      "percent": 0.315647
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Catholic",
+      "year": 2021,
+      "offenses": 71,
+      "percent": 0.063849
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Protestant",
+      "year": 2021,
+      "offenses": 42,
+      "percent": 0.03777
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Islamic (Muslim)",
+      "year": 2021,
+      "offenses": 121,
+      "percent": 0.108813
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Other Religion",
+      "year": 2021,
+      "offenses": 220,
+      "percent": 0.197842
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Multiple Religions",
+      "year": 2021,
+      "offenses": 41,
+      "percent": 0.036871
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Buddhist",
+      "year": 2021,
+      "offenses": 28,
+      "percent": 0.02518
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Sikh",
+      "year": 2021,
+      "offenses": 218,
+      "percent": 0.196043
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Atheism/Agnosticism/etc.",
+      "year": 2021,
+      "offenses": 20,
+      "percent": 0.017986
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Gay (Male)",
+      "year": 2021,
+      "offenses": 612,
+      "percent": 0.463636
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Lesbian",
+      "year": 2021,
+      "offenses": 159,
+      "percent": 0.120455
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti Mixed Group",
+      "year": 2021,
+      "offenses": 492,
+      "percent": 0.372727
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Heterosexual",
+      "year": 2021,
+      "offenses": 15,
+      "percent": 0.011364
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Bisexual",
+      "year": 2021,
+      "offenses": 42,
+      "percent": 0.031818
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-White",
+      "year": 2022,
+      "offenses": 1102,
+      "percent": 0.143546
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Black or African American",
+      "year": 2022,
+      "offenses": 4000,
+      "percent": 0.521037
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-American Indian or Alaska Native",
+      "year": 2022,
+      "offenses": 209,
+      "percent": 0.027224
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Asian",
+      "year": 2022,
+      "offenses": 579,
+      "percent": 0.07542
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Native Hawaiian or Other Pacific Islander",
+      "year": 2022,
+      "offenses": 29,
+      "percent": 0.003778
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Multiple Races",
+      "year": 2022,
+      "offenses": 271,
+      "percent": 0.0353
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Arab",
+      "year": 2022,
+      "offenses": 105,
+      "percent": 0.013677
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Hispanic or Latino",
+      "year": 2022,
+      "offenses": 937,
+      "percent": 0.122053
+    },
+    {
+      "motivation": "Race_Ethnicit_Ancestry",
+      "category": "Anti-Other Race/Ethnicity/Ancestry",
+      "year": 2022,
+      "offenses": 445,
+      "percent": 0.057965
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Jewish",
+      "year": 2022,
+      "offenses": 1194,
+      "percent": 0.542974
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Catholic",
+      "year": 2022,
+      "offenses": 110,
+      "percent": 0.050023
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Protestant",
+      "year": 2022,
+      "offenses": 68,
+      "percent": 0.030923
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Islamic (Muslim)",
+      "year": 2022,
+      "offenses": 179,
+      "percent": 0.081401
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Other Religion",
+      "year": 2022,
+      "offenses": 371,
+      "percent": 0.168713
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Multiple Religions",
+      "year": 2022,
+      "offenses": 48,
+      "percent": 0.021828
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Buddhist",
+      "year": 2022,
+      "offenses": 21,
+      "percent": 0.00955
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Sikh",
+      "year": 2022,
+      "offenses": 192,
+      "percent": 0.087312
+    },
+    {
+      "motivation": "Religion",
+      "category": "Anti-Atheism/Agnosticism/etc.",
+      "year": 2022,
+      "offenses": 16,
+      "percent": 0.007276
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Gay (Male)",
+      "year": 2022,
+      "offenses": 1194,
+      "percent": 0.540271
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Lesbian",
+      "year": 2022,
+      "offenses": 211,
+      "percent": 0.095475
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti Mixed Group",
+      "year": 2022,
+      "offenses": 745,
+      "percent": 0.337104
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Heterosexual",
+      "year": 2022,
+      "offenses": 23,
+      "percent": 0.010407
+    },
+    {
+      "motivation": "Sexual_orientation",
+      "category": "Anti-Bisexual",
+      "year": 2022,
+      "offenses": 37,
+      "percent": 0.016742
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Race/Ethnicity/Ancestry",
+      "year": 2019,
+      "offenses": 4784,
+      "percent": 0.611061
+    },
+    {
+    "motivation": "sum_incidents",
+    "category": "Religions",
+    "year": 2019,
+    "offenses": 1650,
+    "percent": 0.210755
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Sexual Orientations",
+      "year": 2019,
+      "offenses": 1395,
+      "percent": 0.178184
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Race/Ethnicity/Ancestry",
+      "year": 2020,
+      "offenses": 6677,
+      "percent": 0.650526
+    },
+    {
+    "motivation": "sum_incidents",
+    "category": "Religions",
+    "year": 2020,
+    "offenses": 1402,
+    "percent": 0.136594
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Sexual Orientations",
+      "year": 2020,
+      "offenses": 2185,
+      "percent": 0.212880
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Race/Ethnicity/Ancestry",
+      "year": 2021,
+      "offenses": 5448,
+      "percent": 0.691371
+    },
+    {
+    "motivation": "sum_incidents",
+    "category": "Religions",
+    "year": 2021,
+    "offenses": 1112,
+    "percent": 0.141117
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Sexual Orientations",
+      "year": 2021,
+      "offenses": 1320,
+      "percent": 0.167513
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Race/Ethnicity/Ancestry",
+      "year": 2022,
+      "offenses": 7677,
+      "percent": 0.635198
+    },
+    {
+    "motivation": "sum_incidents",
+    "category": "Religions",
+    "year": 2022,
+    "offenses": 2199,
+    "percent": 0.181946
+    },
+    {
+      "motivation": "sum_incidents",
+      "category": "Sexual Orientations",
+      "year": 2022,
+      "offenses": 2210,
+      "percent": 0.182856
+    }
+  ]

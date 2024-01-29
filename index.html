@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Project 2</title>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="https://d3js.org/topojson.v3.min.js"></script>
+    </head>
+
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .state {
+            stroke: rgb(0, 0, 0);
+        }
+        
+        .filters {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 35px;
+            margin-bottom: 0;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-size: 30px;
+            margin-left: 20px;
+        }
+        
+        button {
+            margin-right: 10px;
+            height: 30px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        #category {
+            font-size: 18px;
+            margin-left: 0;
+            margin-right: 10px;
+            margin-top: 4px;
+        }
+
+        #mapContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        div .hover-map {
+            position: absolute !important;
+            text-align: left;
+            padding: .5rem;
+            background: rgb(60, 60, 60);
+            color: white;
+            opacity: 0.9;
+            border-radius: 2px;
+            pointer-events: none;
+            font-size: 13px;
+        }
+
+        .row-align {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-right: 20px;
+            margin-bottom: 20px;
+        }
+
+        #lineplot {
+            display:block;
+            margin: 0 auto;
+            margin-bottom: 40px;
+        }
+
+        #slider {
+            text-align: center;
+            margin-top: 5px;
+            margin-right: 20px;
+        }
+
+        #slider p{
+            margin-top: 10px;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 500px;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            background: #ddd;
+            border: none;
+            height: 8px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: none;
+            height: 16px;
+            width: 30px;
+            background: #636363;
+            cursor: pointer;
+            position: relative;
+            top: -4px
+        }
+
+        .legend-text {
+            fill: #333;
+        }
+
+        .active {
+            background-color: #636363;
+            color: white;
+        }
+        
+        .gridlines line {
+            stroke: #bbb;
+        }
+  
+        .gridlines .domain {
+            stroke: none;
+        }
+
+        
+    </style>
+
+    <body>
+        <h1>Hate Crimes in the US 2019-2022</h1>
+        <div class="filters">
+            <div id="slider">
+                <input type="range" id="yearSlider" min="2019" max="2022" step="1" value="2022"/>
+                <p>Year: <span id="selectedYear">2022</span></p>
+            </div>
+            <div class="buttons">
+                <p id="category">Filter Hate Crime by Category: </p>
+                <button id="totalFilter">Total</button>
+                <button id="raceFilter">Race</button>
+                <button id="religionFilter">Religion</button>
+                <button id="sexualOrientationFilter">Sexual Orientation</button>
+            </div>
+        </div>
+        <div class="row-align">
+            <div id="mapContainer">
+                <svg id="choropleth" height="500" width="800" style="margin:20px; stroke:black"></svg>
+                <svg id="colorLegend" height="100" width="800" style="background: #fff; margin-top:10px" ></svg>
+            </div>
+            <div id="pieContainer">
+            <svg id="pie_svg" height="500" width="500" style="border: 1px solid grey;"></svg>
+            </div>
+        </div>
+        <svg id="lineplot" height="450" width="1200"></svg>
+    <script>
+        // Main map setup
+        const svg = d3.select("#choropleth");
+        const width = svg.attr("width");
+        const height = svg.attr("height");
+        const margin = {top: 20, right: 20, bottom: 20, left:20};
+        const mapWidth = width - margin.left - margin.right;
+        const mapHeight = height - margin.top - margin.bottom;
+        const map = svg.append("g")
+                            .attr("transform","translate("+margin.left+","+margin.top+")");
+        let crimes; 
+        // Pie chart setup
+        const pie_svg = d3.select("#pie_svg");
+        const pie_width = pie_svg.attr("width");
+        const pie_height = pie_svg.attr("height");
+        const pie_margin = {top: 20, right: 40, bottom: 20, left:40};
+        var radius = Math.min(pie_width, pie_height) / 2 - pie_margin.right
+        const piechart = pie_svg.append("g")
+                            .attr("transform", "translate(" + pie_width / 2 + "," + pie_height / 2 + ")");
+        // Lineplot setpup
+        const line_svg = d3.select("#lineplot");
+        const line_height = line_svg.attr("height");
+        const line_width = line_svg.attr("width");
+        const line_margin = {top: 30, right: 50, bottom: 30, left:50};
+        const plotWidth = line_width - 400 - line_margin.top - line_margin.bottom;
+        const plotHeight = line_height - line_margin.top - line_margin.bottom;
+
+        // Load data
+        const requestData = async function() {
+            const us = await d3.json("us-smaller.json");
+            const crimes = await d3.csv("states_hate_crime_19_22.csv");
+            const breakdown = await d3.json("breakdown.json");
+
+            // Process topojson
+            var states = topojson.feature(us, us.objects.states);
+            var stateMesh = topojson.mesh(us, us.objects.states);
+            const projection = d3.geoAlbersUsa().fitSize([mapWidth, mapHeight], states);
+            const path = d3.geoPath().projection(projection);
+
+            // Draw States Outlines
+            let statePaths = map.selectAll("path.state").data(states.features)
+                                .join("path")
+                                .attr("class", "state")
+                                //  .attr("note", d => d.id)
+                                .attr("d", path)
+                                .attr("fill", "none");
+            map.append("path").datum(stateMesh)
+               .attr("class","outline")
+               .attr("d", path)
+               .attr("fill", "none");
+            var map_div = d3.select("#mapContainer").append("div")
+                                            .attr("class", "hover-map")
+                                            .style("opacity", 0);
+
+            // Title for pie chart
+            pie_svg.append("text")
+                        .attr("x", pie_width / 2)
+                        .attr("y", pie_margin.top+20)
+                        .attr("text-anchor", "middle")
+                        .attr("font-size", "20px")
+                        .attr("font-weight", "bold")
+                        .text("Breakdown of Motivation for Each Category");
+            // Prepare an empty space for pie hover legend
+            var pie_div = d3.select("svg#pie_svg").append("rect")
+                                                .attr("id", "hover-div")
+                                                .attr("width",  335)
+                                                .attr("height", 50)
+                                                .attr("x", 0)
+                                                .attr("y", 450)
+                                                .attr("opacity", 0)
+                                                .attr("fill", "lightgrey");
+
+            // Draw Axes and Gridlines for lineplot
+            const yScale = d3.scaleLinear()
+                              .domain(d3.extent(breakdown, d => d['offenses'] ))
+                              .range([plotHeight, 0]);
+            const xScale = d3.scalePoint()
+                            .domain([2019, 2020, 2021, 2022])
+                            .range([0, plotWidth])
+                            .padding(0.2);
+            const lineGrids = drawGrids(line_svg, xScale, yScale, line_margin, line_width, line_height, plotWidth, plotHeight, "Subcategories of Hate Crime Motivation from 2019-2022")
+            const lineplot = line_svg.append("g")
+                                        .attr("transform","translate("+line_margin.left+","+line_margin.top+")");
+
+            // Filters buttons setup
+            let currentFilter = 'sum_incidents';
+            let currentYear = '2022';
+            var button = document.getElementById("totalFilter");
+            button.classList.add("active");
+
+            document.getElementById('totalFilter')
+                    .addEventListener('click', function() {
+                        currentFilter = 'sum_incidents';
+                        updateVisualization(currentYear);
+                        setActive(this);
+                    });
+            document.getElementById('raceFilter')
+                    .addEventListener('click', function() {
+                        currentFilter = 'Race_Ethnicit_Ancestry';
+                        updateVisualization(currentYear);
+                        setActive(this);
+                    });
+            document.getElementById('religionFilter')
+                    .addEventListener('click', function() {
+                        currentFilter = 'Religion';
+                        updateVisualization(currentYear);
+                        setActive(this);
+                    });
+            document.getElementById('sexualOrientationFilter')
+                    .addEventListener('click', function() {
+                        currentFilter = 'Sexual_orientation';
+                        updateVisualization(currentYear);
+                        setActive(this);
+                    });
+
+            // Year Slider setup
+            // Initial visualization for 2022 sum
+            updateVisualization("2022")
+            const yearSlider = d3.select("#yearSlider");
+            const selectedYearSpan = d3.select("#selectedYear");
+
+            yearSlider.on("input", function() {
+                const selectedYear = this.value;
+                selectedYearSpan.text(selectedYear);
+                updateVisualization(selectedYear);
+            });
+
+            // Helper function: Update data by filter
+            function updateVisualization(selectedYear) {
+                currentYear = selectedYear;
+                let yearKey = selectedYear.slice(-2);
+                let propName = `${currentFilter}_${yearKey}`;
+
+                // stateID ===> stateData
+                var stateDict = {}   
+                crimes.forEach( d => {
+                    stateDict[d.state_code] = d;
+                });
+
+                // Filter the breakdown data for pie chart and lineplot
+                var pieData = breakdown.filter( (d) => {
+                    return d['year'] === parseInt(selectedYear) && d['motivation'] === currentFilter;
+                })
+                var plotData = breakdown.filter( (d) => {
+                    return d['motivation'] === currentFilter;
+                })
+                let lineExtent = d3.map(pieData, d => d['category']);
+
+                // Update the color scale
+                var colorsRange = ["#f7fcf0", "#c9eac6", "#7bcbc4", "#2b8dbf", "#084081"];
+                const colorScale = d3.scaleQuantile() 
+                                     .domain(d3.map(crimes, d => +d[propName].replace(/\,/g, ''))) 
+                                     .range(colorsRange);
+                
+                const pieScale = d3.scaleOrdinal()
+                                    .domain(lineExtent)
+                                    .range(d3.schemeCategory10);
+
+                // Update Legend
+                drawLegend(colorScale, pieScale);
+
+                // Filling color 
+                map.selectAll(".state")
+                   .style("fill", d => {
+                        const stateData = stateDict[d.id];
+                        if (stateData && stateData[propName]) {
+                            const color = colorScale(+stateData[propName].replace(/\,/g, ''));
+                            return color;
+                        } else {
+                            return "#ccc"; 
+                        }
+                   })
+                   .on("mouseover", function (event, d) {
+                            let location = d3.pointer(event);
+                            let x = location[0];
+                            let y = location[1];
+                            d3.selectAll(".state").transition()
+                                        .duration(50)
+                                        .attr("opacity", 0.5);
+                            d3.select(this).transition()
+                                .duration(50)
+                                .attr("opacity", 1);
+                            map_div.transition()
+                                    .duration(50)
+                                    .style("opacity", 1);
+                            info = stateDict[d.id];
+                            map_div.html(info['State'] + "<br>Incidents: " + info[propName] + "<br>Population: " + info[`Population_covered_${yearKey}`])
+                                        .style("left", (event.pageX + 10) + "px")
+                                        .style("top", (event.pageY - 15) + "px");
+                   })
+                   .on("mouseout", function (event, d) {
+                            d3.selectAll(".state").transition()
+                                                    .duration(50)
+                                                    .attr("opacity", 1);
+                             map_div.transition()
+                                    .duration(50)
+                                    .style("opacity", 0);
+                   });
+                
+                // Fill a donut chart
+                pie_svg.selectAll("path").remove();
+                // Draw the arcs of the donut
+                var pie = d3.pie().value(function(d) { 
+                    return d.percent; 
+                });
+                var arc = piechart.selectAll("arc")
+                                .data(pie(pieData))
+                                .enter();
+                var inArc = d3.arc()
+                            .outerRadius(radius * 0.8)
+                            .innerRadius(radius * 0.5);
+
+                arc.append("path")
+                    .attr("class", "pie-arc")
+                    .attr("d", inArc)
+                    .attr("fill", function(d) { 
+                        return pieScale(d.data.category); 
+                    })
+                    .attr("stroke", "white")
+                    .attr("stroke-width", 1)
+                    .attr("opacity", 0.9)
+                    .on("mouseover", function (event,d) {
+                        // Make the hovered arc stand out
+                        d3.selectAll("path.pie-arc").attr("opacity", 0.6);
+                        d3.select(this).transition()
+                                        .duration(50)
+                                        .attr("opacity", 1)
+                        // Show the data
+                        pie_div.attr("opacity", 1);
+                        pie_svg.append("text")
+                                .attr("class", "label")
+                                .text(d.data.category)
+                                .attr("x", 8)
+                                .attr("y", pie_height - 30)
+                                .style("fill", "black")
+                                .style("text-anchor", "start")
+                                .style("background-color", "white")
+                                .style("font-size", 17)
+                        pie_svg.append("text")
+                                .attr("class", "label")
+                                .text((d.data.percent*100).toFixed(2).toString() + "%")
+                                .attr("x", 8)
+                                .attr("y", pie_height - 10)
+                                .style("fill", "black")
+                                .style("text-anchor", "start")
+                                .style("background-color", "white")
+                                .style("font-size", 17)
+
+                    })
+                    .on("mouseout", function (event,d) {
+                        d3.select(this).transition()
+                                        .duration(50)
+                                        .attr("opacity", 0.9);
+                        d3.selectAll("path.pie-arc").attr("opacity", 0.9);
+                        d3.selectAll("text.label")
+                                    .text("")
+                                    .style("fill", "none");
+                        pie_div.attr("opacity", 0);
+                    })
+
+
+                // Lineplot providing a historical overview on the category
+                // Clean all the data before
+                lineplot.selectAll("path.line").remove();
+                // Filter by category
+                const dataGrouped = d3.group(plotData, d => d.category);
+                dataGrouped.forEach( d => {
+                    // Update the yScale and y axis
+                    yScale.domain(d3.extent(plotData, d => d['offenses']));
+                    line_svg.select("g.y.axis")
+                        .transition()
+                        .call(lineGrids);
+                    var lineGen = d3.line()
+                                    .x( d => xScale(d['year']) )
+                                    .y( d => yScale(d['offenses']) );
+                    d.forEach((dataPoint) => {
+                    lineplot.append("path")
+                        .datum(d)
+                        .attr("class", "line")
+                        .attr("fill", "none") 
+                        .attr("stroke", d => pieScale(dataPoint['category']))
+                        .attr("stroke-width", 1)
+                        .attr("d", lineGen);});
+                });
+                lineplot.selectAll("circle").data(plotData)
+                                            .join("circle")
+                                            .attr("r", 5)
+                                            .attr("cx", d => xScale(d['year']))
+                                            .attr("cy", d => yScale(d['offenses']))
+                                            .style("fill", d => pieScale(d['category']) );
+            }
+
+            // Helper function: Draw Legend
+            function drawLegend(colorScale, colorScale2) {
+                const legendSvg = d3.select("#colorLegend").html("");
+                const legendWidth = 750;
+                const legendHeight = 20;
+                const legendRange = colorScale.domain()[colorScale.domain().length - 1] - colorScale.domain()[0];
+                let cumulativeWidth = 0;
+                // const num = colorScale.range().length + 1;
+                // const gap = legendWidth / num;
+
+                // Append a group element to the SVG
+                const legend = legendSvg.append("g")
+                                        .attr("class", "legend")
+                                        .attr("transform", `translate(30, ${legendHeight})`);
+
+                // Draw Legend
+                legend.selectAll("rect")
+                      .data(colorScale.range().map(color => {
+                        const d = colorScale.invertExtent(color);
+                        return d;
+                      }))
+                      .enter()
+                      .append("rect")
+                      .attr("height", legendHeight)
+                      .attr("x", d => {
+                        const rectStart = cumulativeWidth;
+                        cumulativeWidth += ((d[1] - d[0]) / legendRange) * legendWidth;
+                        return rectStart;
+                      })
+                      .attr("width", d => {
+                        return ((d[1] - d[0]) / legendRange) * legendWidth;
+                      })
+                      .attr("fill", d => colorScale(d[0]));
+
+                // Text labels
+                const quantiles = colorScale.quantiles();
+                const rangeValues = [colorScale.domain()[0], ...quantiles, colorScale.domain()[colorScale.domain().length-1]];
+
+                let textPositions = [];
+                cumulativeWidth = 0;
+                textPositions.push(0);
+                for (let i = 0; i < rangeValues.length-1; i++) {
+                    const d = rangeValues[i];
+                    const next = rangeValues[i + 1] !== undefined ? rangeValues[i + 1] : d;
+                    const rangeWidth = ((next - d) / legendRange) * legendWidth;
+                    textPositions.push(cumulativeWidth + rangeWidth);
+                    cumulativeWidth += rangeWidth;
+                }
+                
+                legend.selectAll("text")
+                      .data(rangeValues)
+                      .enter().append("text")
+                      .attr("class", "legend-text")
+                      .attr("x", (d, i) => textPositions[i])
+                      .attr("y", legendHeight + 20)
+                      .text(d => d.toFixed(0))
+                      .attr("text-anchor", "middle")
+                      .style("font-size", "13px"); 
+                
+                // Set the color legend for line plot
+                line_svg.selectAll("rect").remove()
+                line_svg.selectAll("circle.legend").remove()
+                line_svg.selectAll("text.ledtext").remove()
+
+                let colorExtent = colorScale2.domain();
+                
+                if (colorExtent !== undefined) {
+                    let cateNum = colorExtent.length;
+                    const categoryNumberScale = d3.scaleOrdinal(colorExtent,createRange(0, cateNum-1));
+                    const gapScale = d3.scaleLinear()
+                                            .domain([0,cateNum-1])
+                                            .range([line_height-cateNum*35+20, line_height-40]);
+                    let textLengths = colorExtent.map(d => d.length);
+                    if (textLengths.length !== 0) {
+                        let maxLength = Math.max(...textLengths);
+                        line_svg.append('rect')
+                                .attr('x',line_width-370)
+                                .attr('y', line_height-cateNum*35-15)
+                                .attr('width', function() {
+                                    let y = maxLength*8;
+                                    if (y> 310) {
+                                        return 310;
+                                    } else if (y < 150) {
+                                        return 150;
+                                    } else {
+                                        return y;
+                                    }
+                                })
+                                .attr('height',cateNum*35)
+                                .attr('stroke','black')
+                                .attr('stroke-width', 1)
+                                .attr('fill', 'none')
+                                .lower();
+                    }
+
+                    colorExtent.forEach( (d) => {
+                    var cnumber = categoryNumberScale(d);
+                    line_svg.append("circle")
+                                .attr("class", "legend")
+                                .attr('cx', line_width-350)
+                                .attr('cy', d => gapScale(cnumber))
+                                .attr("r", 7) 
+                                .style("fill", colorScale2(d));
+
+                    line_svg.append("text")
+                            .attr('class', 'ledtext')
+                            .attr("x", line_width-340)
+                            .attr("y", d => gapScale(cnumber))
+                            .text(d)
+                            .attr('font-size', '14px')
+                            .attr('dominant-baseline', 'central');
+                    })
+                }
+            }
+
+            // Helper function: automatically creating a number array
+            function createRange(start, end) {
+                return Array.from({ length: end - start + 1 }, (_, index) => index + start);
+            }
+
+            // Helper function: Button Style
+            function setActive(activeButton) {
+                document.querySelectorAll('.buttons button').forEach(button => {
+                    button.classList.remove('active');
+                });
+                activeButton.classList.add('active');
+            }
+
+            // Helper function: Draw Axes and Gridlines
+            function drawGrids(svg, xScale, yScale, margin, width, height, plotWidth, plotHeight, title) {
+                let leftAxis = d3.axisLeft(yScale);
+                svg.append("g")
+                    .attr("class", "y axis")
+                    .attr('transform', `translate(${margin.left - 10},${margin.top})`)
+                    .style("font-size", "12.5px")
+                    .call(leftAxis);
+                let bottomAxis = d3.axisBottom(xScale);
+                svg.append("g")
+                    .attr("class", "x axis")
+                    .attr('transform', `translate(${margin.left},${margin.top + plotHeight + 10})`)
+                    .style("font-size", "14px")
+                    .call(bottomAxis);
+                let leftGrid = d3.axisLeft(yScale)
+                    .tickSize(-plotWidth - 10)
+                    .tickFormat("");
+                svg.append("g")
+                    .attr("class", "y gridlines")
+                    .attr('transform', `translate(${margin.left - 10},${margin.top})`)
+                    .call(leftGrid);
+                let bottomGrid = d3.axisBottom(xScale)
+                    .tickSize(-plotHeight - 10)
+                    .tickFormat("");
+                svg.append("g")
+                    .attr("class", "x gridlines")
+                    .attr('transform', `translate(${margin.left},${margin.top + plotHeight + 10})`)
+                    .call(bottomGrid);
+                svg.append("text")
+                    .attr("x", width / 2)
+                    .attr("y", margin.top / 2)
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", "20px")
+                    .attr("font-weight", "bold")
+                    .text(title);
+                return leftAxis;
+            }
+        }
+        requestData();
+    </script>
+    </body>
+</html>
